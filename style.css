@@ -1,5 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+
+
 :root{
-    --color-black: black;
+    --color-white: white;
 }
 
 *, *::after, *::before{
@@ -14,6 +19,17 @@
     padding: 0;
 }
 
+#bg{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+header{
+    padding: 0 2rem;
+}
+
 ul{
     display: flex;
     justify-content: space-between;
@@ -21,13 +37,33 @@ ul{
 
 li{
     display: flex;
-    color: red;
-    border: solid var(--color-black) 2px;
+    border: solid var(--color-white) 2px;
     border-radius: 20px;
 }
 
 a{
+    font-family: 'Fredoka One', cursive;
+    color: var(--color-white);
     text-decoration: none;
     font-size: 2rem;
     padding: 5px;
+}
+
+.toggle-button{
+    display: flex;
+    justify-content: flex-end;
+}
+
+i{
+    font-size: 3rem;
+    color: var(--color-white);
+}
+
+.dropdown-menu{
+    display: none;
+}
+
+.dropdown-menu.open{
+    display: block;
+    padding: 0 3rem;
 }

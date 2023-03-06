@@ -38,7 +38,7 @@ function init() {
   light.position.set( 1, 1, 1 ).normalize();
   scene.add( light );
 
-  renderer = new THREE.WebGLRenderer( { antialias: true } );
+  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: document.querySelector('#bg')} );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.outputEncoding = THREE.sRGBEncoding;
@@ -60,4 +60,19 @@ window.addEventListener('resize', onWindowResize, false)
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene,camera)
+}
+
+//NAVBAR CODE
+
+const toggleButton = document.querySelector('.toggle-button')
+const toggleButtonIcon = document.querySelector('.toggle-button i')
+const dropDownMenu = document.querySelector('.dropdown-menu')
+
+toggleButton.onclick = function () {
+    dropDownMenu.classList.toggle('open')
+    const isOpen = dropDownMenu.classList.contains('open')
+
+    toggleButtonIcon.classList = isOpen
+    ? 'fa-solid fa-xmark'
+    : 'fa-solid fa-bars'
 }
