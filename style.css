@@ -5,6 +5,7 @@
 
 :root{
     --color-white: white;
+    --color-black: black;
 }
 
 *, *::after, *::before{
@@ -26,9 +27,9 @@
     z-index: -1;
 }
 
-header{
+/* header{
     padding: 0 2rem;
-}
+} */
 
 ul{
     display: flex;
@@ -37,9 +38,10 @@ ul{
 
 li{
     display: flex;
-    border: solid var(--color-white) 2px;
+    border: solid var(--color-white) 1px;
     border-radius: 20px;
 }
+
 
 a{
     font-family: 'Fredoka One', cursive;
@@ -49,14 +51,26 @@ a{
     padding: 5px;
 }
 
+a:hover {
+    background: var(--color-white);
+    color: #000;
+}
+
+li:hover {
+    border: solid var(--color-black) 1px;
+}
+
 .toggle-button{
     display: flex;
     justify-content: flex-end;
+    padding: 2rem;
 }
 
 i{
-    font-size: 3rem;
+    font-size: 4rem;
     color: var(--color-white);
+    text-shadow: 2px 2px 5px gray;
+    padding: 5px;
 }
 
 .dropdown-menu{
