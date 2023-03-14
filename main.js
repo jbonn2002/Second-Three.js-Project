@@ -5,12 +5,57 @@ import * as THREE from 'three';
 import { BoxLineGeometry } from 'three/addons/geometries/BoxLineGeometry.js';
 import { Color } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import sphereWrap from './public/sphereTest.jpg'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import sphereWrap from './public/sphereTest.jpg';
 
 let container;
 let camera, scene, renderer;
 
 let room;
+
+
+
+init();
+
+
+
+function init() {
+
+  container = document.createElement( 'div' );
+  document.body.appendChild( container );
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color( 0x000000 );
+  
+  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: document.querySelector('#bg')} );
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.xr.enabled = true;
+  container.appendChild( renderer.domElement );
+
+  
+  camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 10 );
+  camera.position.set( 0, 1.6, 3 );
+  scene.add( camera );
+  
+  
+  room = new THREE.LineSegments(
+    new BoxLineGeometry( 6, 6, 6, 10, 10, 10 ).translate( 0, 3, 0 ),
+    new THREE.LineBasicMaterial( { color: 0x808080 } )
+  );
+  scene.add( room );
+
+  scene.add( new THREE.HemisphereLight( 0x606060, 0x404040 ) );
+
+  const light = new THREE.DirectionalLight( 0xffffff, 1 );
+  light.position.set( 1, 1, 1 ).normalize();
+  scene.add( light );
+
+  // const ambLight =  new THREE.AmbientLight( 0x404040 );
+  // scene.add( ambLight )
+
+}
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -21,51 +66,14 @@ const sphereMat = new THREE.MeshBasicMaterial({
 const sphereOne = new THREE.Mesh( sphereGeo, sphereMat );
 sphereOne.position.y = 1.7;
 
-init();
-animate();
+scene.add(sphereOne)
+
+// const orbitControls = new OrbitControls( camera, renderer.domElement );
+// camera.position.set( 2, 4, 0 );
+// orbitControls.update();
+ 
 
 
-function init() {
-
-  container = document.createElement( 'div' );
-  document.body.appendChild( container );
-
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color( 0x000000 );
-
-  camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 10 );
-  camera.position.set( 0, 1.6, 3 );
-  scene.add( camera );
-
-  room = new THREE.LineSegments(
-    new BoxLineGeometry( 6, 6, 6, 10, 10, 10 ).translate( 0, 3, 0 ),
-    new THREE.LineBasicMaterial( { color: 0x808080 } )
-  );
-  scene.add( room );
-
-  // scene.add( new THREE.HemisphereLight( 0x606060, 0x404040 ) );
-
-  // const light = new THREE.DirectionalLight( 0xffffff );
-  // light.position.set( 1, 1, 1 ).normalize();
-  // scene.add( light );
-
-  const ambLight =  new THREE.AmbientLight( 0x404040 );
-  scene.add( ambLight )
-
-
-  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: document.querySelector('#bg')} );
-  renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.xr.enabled = true;
-  container.appendChild( renderer.domElement );
-
-  // const orbitControls = new OrbitControls( camera, renderer.domElement );
-  // orbitControls.update();
-
-  scene.add( sphereOne );
-
-}
 
 
 function onWindowResize() {
@@ -82,10 +90,10 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene,camera);
 
-  sphereOne.rotateY(0.003);
-  
+  sphereOne.rotateY(0.002)
 }
 
+animate();
 //NAVBAR CODE
 
 const toggleButton = document.querySelector('.toggle-button')
